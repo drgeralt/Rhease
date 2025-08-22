@@ -1,23 +1,13 @@
 <?php
 
 class ApplicationModel{
-    private $db_connection;
+      private $db_connection;
+      public function __construct(){
+         require_once BASE_PATH . '/app/Core/Database.php';
+         $this->db_connection = Database::getInstance();
+      }
 
-    public function __construct(){
-        $host = 'localhost';
-        $user = 'root';
-        $password = '';
-        $database = 'rhease';
-
-        try{
-            $this->db_connection = new PDO("mysql:host=$host;dbname=$database", $user, $password);
-            $this->db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e){
-            die("Erro ao conectar ao banco de dados: " . $e->getMessage());
-        }
-    }
-
-    public function saveApplication($data) {
+       public function saveApplication($data): bool{
         $sql = "INSERT INTO applications (name, email, phone, years_experience, expected_salary, bio) 
                 VALUES (:name, :email, :phone, :years_experience, :expected_salary, :bio)";
 
@@ -33,7 +23,7 @@ class ApplicationModel{
 
             return $stmt->execute();
         } catch(PDOException $e){
-            
+
             error_log("Erro ao salvar a candidatura: " . $e->getMessage());
             return false;
         }
@@ -66,7 +56,8 @@ class ApplicationModel{
         }
     }
 
-    public function updateApplicationById($id, $data) {
+    public function updateApplicationById($id, $data): bool
+    {
         $sql = "UPDATE applications SET name = :name, email = :email, phone = :phone, years_experience = :years_experience, expected_salary = :expected_salary, bio = :bio WHERE id = :id";
 
         try {
@@ -85,7 +76,8 @@ class ApplicationModel{
         }
     }
 
-    public function deleteApplicationById($id) {
+    public function deleteApplicationById($id): bool
+    {
         $sql = "DELETE FROM applications WHERE id = :id";
         try {
             $stmt = $this->db_connection->prepare($sql);
