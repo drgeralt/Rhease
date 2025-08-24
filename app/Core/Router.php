@@ -32,8 +32,8 @@ class Router {
                 $controller_name = $route['controller'];
                 $action = $route['action'];
                 $controller = new $controller_name();
-                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                call_user_func_array([$controller, $action], $params);
+                array_shift($matches);
+                call_user_func_array([$controller, $action], $matches);
                 return;
             }
 
