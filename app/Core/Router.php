@@ -16,7 +16,7 @@ class Router {
         $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $request_method = $_SERVER['REQUEST_METHOD'];
 
-        $base_path = '/Rhease/public';
+        $base_path = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
         $request_uri = str_replace($base_path, '', $request_uri);
 
         if (empty($request_uri)) {
