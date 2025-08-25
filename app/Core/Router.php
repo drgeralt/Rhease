@@ -16,7 +16,7 @@ class Router {
         $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $request_method = $_SERVER['REQUEST_METHOD'];
 
-        $base_path = '/Rhease/public';
+        $base_path = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
         $request_uri = str_replace($base_path, '', $request_uri);
 
         if (empty($request_uri)) {
@@ -32,8 +32,8 @@ class Router {
                 $controller_name = $route['controller'];
                 $action = $route['action'];
                 $controller = new $controller_name();
-                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                call_user_func_array([$controller, $action], $params);
+                array_shift($matches);
+                call_user_func_array([$controller, $action], $matches);
                 return;
             }
 
