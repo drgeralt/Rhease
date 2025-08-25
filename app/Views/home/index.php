@@ -18,6 +18,7 @@
 <a href="/Rhease/public/job-application" class="button1">Ver Vaga de Emprego</a>
 <a href="/Rhease/public/applications" class="button2">Ver Candidaturas</a>
 <a href="/RHease/public/beneficios" class="button1"> Gerenciar Benefícios </a>
+<a href="/RHease/public/funcionarios/demitidos" class="button2"> Lista de demitidos </a>
 <br>
 <a href="/Rhease/public/payroll/add" class="button1">Criar Pagamento</a>
 <a href="/Rhease/public/payrolls" class="button2">Ver Pagamentos</a>
